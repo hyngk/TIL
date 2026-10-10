@@ -1,4 +1,97 @@
 # Simple Linear Regression
+## Simple Linear Regression이란?
+A method that studies the linear relationship between a single response variable(Y) and a single predictor variable(X) and expresses that relationship mathematically as a straight-line model with an intercept and a slope\
+(하나의 반응변수와 하나의 예측변수 사이의 선형적 관계를 연구하고, 그 관계를 절편과 기울기를 가진 직선 모형으로 수식화하는 방법)
+## Covariance
+두 변수가 함께 어떻게 변하는지를 나타내는 값\
+선형관계만을 측정 (X,Y가 비선형적인 방식으로 관여되있을 수 있음)
+### Sample covariance
+$$
+s_{XY}
+=
+\operatorname{cov}(X,Y)
+=
+\operatorname{cov}(Y,X)
+=
+\frac{1}{n-1}
+\sum_{i=1}^{n}
+(x_i-\bar{x})(y_i-\bar{y})
+$$
+- $x_i, y_i$: $i$번째 관측값 $(i=1,\ldots,n)$
+- $\bar{x}, \bar{y}$: 각각 $X, Y$의 표본평균 ($\mu_X, \mu_Y$: 각각 $X, Y$의 모집단평균)
+- $n$: 관측값의 개수
+- $n-1$: 자유도
+
+-> Y와 X사이 선형 관계의 방향을 나타냄\
+if cov(X,Y)>0, a positive relationship between Y and X\
+if cov(X,Y)<0, a negative relationship between Y and X\
+if cov(X,Y)=0, no linear relationship between Y and X
+
+But, 공분산은 측정 단위가 바뀌면 값도 변하기 때문에 (e.g. 키, cm/m -> 실제 관계는 같지만 공분산의 값은 달라짐), 관계의 강도를 나타내진 않는다.
+
+=> 관계의 강도를 비교할 땐 단위의 영향을 제거한 correlation coefficient를 사용
+## Correlation coefficient
+관계의 방향과 강도 모두 나타냄\
+측정단위가 바뀌어도 변하지 않음\
+선형관계만을 측정 (X,Y가 비선형적인 방식으로 관여되있을 수 있음)
+### standardize the data
+$$
+z_{y,i}=\frac{y_i-\bar{y}}{s_y}
+$$
+
+$$
+z_{x,i}=\frac{x_i-\bar{x}}{s_x}
+$$
+- Z has mean=0 and sd=1
+- $s_y$: the sample standard deviation of Y
+- $s_x$: the sample standard deviation of X
+$$
+s_y
+=
+\sqrt{
+\frac{1}{n-1}
+\sum_{i=1}^{n}
+(y_i-\bar{y})^2
+}
+$$
+$$
+s_x
+=
+\sqrt{
+\frac{1}{n-1}
+\sum_{i=1}^{n}
+(x_i-\bar{x})^2
+}
+$$
+### standardized X and Y
+$$
+\operatorname{cor}(Y,X)
+=
+\frac{1}{n-1}
+\sum_{i=1}^{n}
+\left(
+\frac{y_i-\bar{y}}{s_y}
+\right)
+\left(
+\frac{x_i-\bar{x}}{s_x}
+\right)
+=
+\frac{cov(Y,X)}{s_ys_x}
+$$
+$$
+=r_{XY}
+=
+\frac{1}{n-1}
+\sum_{i=1}^{n}
+z_{x,i}z_{y,i}
+$$
+$
+-1 \le cor(Y,X) \le 1
+$
+- 부호는 방향 나타냄
+- -1 또는 1에 가까울수록 Y와 X사이의 선형관계가 더 강해짐
+- if cor(Y,X)=0, no linear relationship between Y and X
+
 ## Simple Linear Regression Model
 $$
 Y=\beta_0+\beta_1X+\varepsilon
