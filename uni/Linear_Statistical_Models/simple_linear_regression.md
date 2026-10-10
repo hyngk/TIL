@@ -206,7 +206,7 @@ $$
 표본 B:    ● ●  ●
 표본 C:  ●   ● ● ●
          └──┘
-       표본 내부의 퍼짐
+      한 샘플의 표본 내부의 퍼짐
        = 표준편차(SD)
 
        x̄_A      x̄_B      x̄_C
@@ -217,3 +217,33 @@ $$
 ```
 
 회귀분석에서는 $\bar X$ 대신 $\hat{\beta}_0,\hat{\beta}_1$ 같은 회귀계수 추정값이 여러 표본에서 얼마나 달라지는지를 표준오차로 측정한다
+
+### Fitted value와 residual
+
+$$
+\hat{y}_i
+=
+\hat{\beta}_0+\hat{\beta}_1x_i
+$$
+
+- $y_i$: 실제 관측값
+- $\hat{y}_i$: fitted value, 회귀직선이 예측한 값
+- $e_i$: residual, 실제값과 fitted value의 차이
+
+$$
+e_i=y_i-\hat{y}_i
+$$
+- The sum of all residuals is zero
+
+$\hat{\beta}_1$는 $Cov(Y,X),Cor(Y,X)$와 항상 같은 부호
+$$
+\hat{\beta}_1
+=
+\frac{\operatorname{cov}(Y,X)}
+{\operatorname{Var}(X)}
+=
+\operatorname{cor}(Y,X)
+\frac{s_y}{s_x}
+$$
+
+## Hypothesis Testing
