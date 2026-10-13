@@ -146,8 +146,17 @@ $=1,2,...,n
 | 결과 | 단위 없는 하나의 수 | 절편과 기울기를 가진 식 |
 | 인과관계 | 증명하지 못함 | 단독으로 인과관계를 증명하지 못함 |
 
-단순회귀에서는 기울기의 부호와 상관계수의 부호가 같음
-
+단순회귀에서는 기울기의 부호와 상관계수의 부호가 같음\
+: $\hat{\beta}_1$는 $Cov(Y,X),Cor(Y,X)$와 항상 같은 부호
+$$
+\hat{\beta}_1
+=
+\frac{\operatorname{cov}(Y,X)}
+{\operatorname{Var}(X)}
+=
+\operatorname{cor}(Y,X)
+\frac{s_y}{s_x}
+$$
 ## Parameter Estimation
 $Estimate\ parameter\ \beta_0\ and\ \beta_1$\
 goal: 반응변수와 예측변수에 대한 산점도의 점들을 가장 잘 대표하는 line찾기
@@ -165,6 +174,8 @@ $$
 $$
 #### 잔차(residual)
 실제 점과 회귀직선 사이의 수직거리(vertical distance)
+
+즉, 실제값과 fitted value의 차이
 $$
 e_i=y_i-\hat y_i
 $$
@@ -176,6 +187,8 @@ $
 $ : SSE (Sum of Squared Errors)
 
 즉, 모든 점과 직선 사이의 수직거리 제곱의 합이 가장 작아지는 직선을 찾는다
+
+즉, 최소제곱법은 SSE를 최소화하는 방법이다
 ## 회귀계수 공식
 $$
 \hat\beta_1
@@ -222,8 +235,65 @@ $$
 $$\therefore\hat Y=\frac13+1.5X
 $$
 해석: X가 1 증가할 때 Y의 평균적인 예측값은 약 1.5 증가한다
+### fitted value 계산
+$$
+\hat y_1=\frac13+1.5(1)=1.833
+$$
+$$
+\hat y_2=\frac13+1.5(2)=3.333
+$$
+$$
+\hat y_3=\frac13+1.5(3)=4.833
+$$
+### residual 계산
+$$
+e_1=2-1.833=0.167
+$$
+$$
+e_2=3-3.333=-0.333
+$$
+$$
+e_3=5-4.833=0.167
+$$
+## 오차와 잔차의 차이
+| 구분 | 오차(error) | 잔차(residual) |
+|---|---|---|
+| 기호 | $\epsilon_i$ | $e_i$ |
+| 정의 | 실제 회귀직선과 관측값의 차이 | 추정된 회귀직선과 관측값의 차이 |
+| 기준 | 모집단의 참된 직선 | 표본으로 적합한 직선 |
+| 관측 가능 여부 | 직접 알 수 없음 | 계산 가능 |
+$$
+\epsilon_i=y_i-(\beta_0+\beta_1x_i)
+$$
+$$
+e_i=y_i-(\hat\beta_0+\hat\beta_1x_i)
+$$
+## $\hat\beta_0$, $\hat\beta_1$이 얼마나 믿을 만한 추정값인가?
+표본을 바꾸면 $\hat\beta_0$, $\hat\beta_1$도 달라짐. 따라서 추정량에는 변동이 있음
+### 회귀계수의 분산
+$\hat{\beta}$이 표본에 따라 얼마나 변하는지를 알아야하는데 그 퍼진 정도를 나타내는 것이 $Var(\hat{\beta})$
+#### 기울기 추정량의 분산
+$$
+\operatorname{Var}(\hat{\beta}_1)
+=
+\frac{\sigma^2}
+{\displaystyle\sum_{i=1}^{n}(x_i-\bar{x})^2}
+$$
+#### 절편 추정량의 분산
+$$
+\operatorname{Var}(\hat{\beta}_0)
+=
+\sigma^2
+\left[
+\frac{1}{n}
++
+\frac{\bar{x}^{\,2}}
+{\displaystyle\sum_{i=1}^{n}(x_i-\bar{x})^2}
+\right]
+$$
+### 오차분산의 추정
+실제 $\sigma^2$는 알 수 없기 때문에 잔차로 추정한다
 
-### $\hat\beta_0$, $\hat\beta_1$이 얼마나 믿을 만한 추정값인가?
 $Var(\varepsilon_i)=\sigma^2$\
 -> $\sigma$(오차의 모집단 표준편차)는 데이터가 회귀직선 주변에 얼마나 퍼져 있는지를 나타내는 값. 하지만 실제로는 알 수 없는 값이기 때문에 데이터로 추정해야 한다.
 $$
@@ -237,29 +307,15 @@ $$
 =
 \sum_{i=1}^{n}(y_i-\hat{y}_i)^2)
 $$
+왜 n-2로 나눌까?\
+단순선형회귀에서 표본으로 추정한 모수가 2개이기 때문
+- $\beta_0$추정
+- $\beta_1$추정
 
-$\beta_0$, $\beta_1$은 모집단의 실제 값이고, $\hat{\beta}_0$, $\hat{\beta}_1$은 표본으로 계산한 추정값.\
-표본을 새로 뽑을 때마다 추정값은 달라짐\
-=> $\hat{\beta}$이 표본에 따라 얼마나 변하는지를 알아야하는데 그 퍼진 정도를 나타내는 것이 $Var(\hat{\beta})$
-$$
-\operatorname{Var}(\hat{\beta}_1)
-=
-\frac{\sigma^2}
-{\displaystyle\sum_{i=1}^{n}(x_i-\bar{x})^2}
-$$
-
-$$
-\operatorname{Var}(\hat{\beta}_0)
-=
-\sigma^2
-\left[
-\frac{1}{n}
-+
-\frac{\bar{x}^{\,2}}
-{\displaystyle\sum_{i=1}^{n}(x_i-\bar{x})^2}
-\right]
-$$
-#### Standard error
+따라서 자유도(degrees of freedom)은 n-2이다
+### 표준오차
+Standard error, SE는 추정량의 표준편차를 추정한 값\
+표본이 바뀔 때 추정값이 얼마나 흔들리는가를 나타내는 수치
 $$
 \operatorname{SE}(\hat{\beta}_1)
 =
@@ -278,56 +334,26 @@ $$
 {\displaystyle\sum_{i=1}^{n}(x_i-\bar{x})^2}
 }
 $$
-=>표준오차가 작을수록 $\hat{\beta_0}$, $\hat{\beta_1}$이 표본에 따라 크게 흔들리지 않고 더 정밀함
-#### 표준오차와 표준편차
+**표준오차가 작을수록 $\hat{\beta_0}$, $\hat{\beta_1}$이** 표본에 따라 크게 흔들리지 않고 **더 정밀함**
 
-- **표준편차(SD)**: 하나의 표본 안에서 관측값들이 평균 주변에 얼마나 퍼져 있는지 나타내는 값
-- **표준오차(SE)**: 여러 표본을 반복해서 뽑았을 때, 표본평균이나 회귀계수 같은 추정값이 얼마나 변하는지 나타내는 값
+=> 다음 상황에서 작아짐
+1. 오차의 변동 $\hat{\sigma}$가 작을 때
+2. X의 관측값들이 넓게 퍼져 있을 때
+3. 표본 크기 n이 충분히 클 때
+#### 표준오차와 표준편차의 차이
+| 구분 | 표준편차(SD, standard deviation) | 표준오차(SE, standard error) |
+|---|---|---|
+| 측정 대상 | 개별 데이터의 퍼짐 | 추정량의 불확실성 |
+| 질문 | 데이터가 얼마나 흩어져 있는가? | 추정값이 얼마나 정확한가? |
+| 사용 | 기술통계(descriptive statistics) | 추론통계(inferential statistics) |
+| 표본 크기 영향 | 직접적인 영향이 작음 | 표본이 커지면 보통 작아짐 |
+- **SD**: 하나의 표본 안에서 관측값들이 평균 주변에 얼마나 퍼져 있는지 나타내는 값
+- **SE**: 여러 표본을 반복해서 뽑았을 때, 표본평균이나 회귀계수 같은 추정값이 얼마나 변하는지 나타내는 값
 
-```text
-표본 A:  ●  ● ●    ●
-표본 B:    ● ●  ●
-표본 C:  ●   ● ● ●
-         └──┘
-      한 샘플의 표본 내부의 퍼짐
-       = 표준편차(SD)
-
-       x̄_A      x̄_B      x̄_C
-         ●        ●        ●
-         └────────┴────────┘
-       표본 간 추정값의 퍼짐
-       = 표준오차(SE)
-```
+예를 들어 시험점수의 표준편차는 학생들 점수의 퍼짐을 나타냄\
+반면 시험 평균의 표준오차는 표본을 반복해서 뽑았을 때 표본평균이 얼마나 달라지는지를 나타냄
 
 회귀분석에서는 $\bar X$ 대신 $\hat{\beta}_0,\hat{\beta}_1$ 같은 회귀계수 추정값이 여러 표본에서 얼마나 달라지는지를 표준오차로 측정한다
-
-### Fitted value와 residual
-
-$$
-\hat{y}_i
-=
-\hat{\beta}_0+\hat{\beta}_1x_i
-$$
-
-- $y_i$: 실제 관측값
-- $\hat{y}_i$: fitted value, 회귀직선이 예측한 값
-- $e_i$: residual, 실제값과 fitted value의 차이
-
-$$
-e_i=y_i-\hat{y}_i
-$$
-- The sum of all residuals is zero
-
-$\hat{\beta}_1$는 $Cov(Y,X),Cor(Y,X)$와 항상 같은 부호
-$$
-\hat{\beta}_1
-=
-\frac{\operatorname{cov}(Y,X)}
-{\operatorname{Var}(X)}
-=
-\operatorname{cor}(Y,X)
-\frac{s_y}{s_x}
-$$
 
 ## Hypothesis Testing
 ### Assumptions
