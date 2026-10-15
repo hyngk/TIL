@@ -356,8 +356,41 @@ $$
 회귀분석에서는 $\bar X$ 대신 $\hat{\beta}_0,\hat{\beta}_1$ 같은 회귀계수 추정값이 여러 표본에서 얼마나 달라지는지를 표준오차로 측정한다
 
 ## Hypothesis Testing
-### Assumptions
+### Assumptions (선형회귀의 기본가정)
 1. Linearity\
-Y랑 X가 선형 관계를 갖고 있다고 가정한다
+X와 Y의 평균적인 관계가 직선이어야 한다
+$$
+E(Y\mid X=x)=\beta_0+\beta_1x
+$$
 2. IID\
-independent and identically distributed (독립적이고 동일분포) 가정
+independent and identically distributed\
+오차들이 서로 독립이고 같은 분산을 가져야 한다
+$$
+E(\epsilon_i)=0
+$$
+$$
+\operatorname{Var}(\epsilon_i)=\sigma^2
+$$
+3. normality\
+오차가 정규분포를 따른다고 가정한다
+$$
+\epsilon_i\sim N(0,\sigma^2)
+$$
+
+### 기울기에 대한 가설검정
+#### 검정의 목적
+설명변수 X가 반응변수 Y를 선형적으로 설명하는데 유용한지 확인
+$$
+H_0:\beta_1=0
+$$
+$$
+H_1:\beta_1\neq0
+$$
+#### 귀무가설 $H_0$
+$$
+\beta_1=0
+$$
+X가 Y를 설명하는 데 선형적으로 유의한 도움이 없다
+- 주의할 점: X랑 Y가 아무런 관계도 없다는 뜻이 아니라, **선형관계가 없다**는 뜻\
+곡선 관계는 여전히 존재할 수 있음
+### 검정통계량
