@@ -640,4 +640,5 @@ H_1:\mu_D>0
 $$
 즉, 대응표본 t검정(paired two-sample t-test)은 사실상 차이값에 대한 일표본 t검정
 
-=> 일표본 t검정과 대응표본 t검정은 선형회귀모형의 특수한 경우이다
+=> 일표본 t검정과 대응표본 t검정은 선형회귀모형의 특수한 경우이다\
+ The one-sample t-test and paired two-sample t-test are special cases of the linear regression model.
